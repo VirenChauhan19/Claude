@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Character Selection</title>
+    <title>Hero Selection</title>
     <style>
+        /* A bold, angled font to mimic the Overwatch vibe */
+        @import url('https://fonts.googleapis.com/css2?family=Teko:wght@500;700&display=swap');
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #1a1a2e;
+            font-family: 'Teko', sans-serif;
+            background: linear-gradient(135deg, #1e1e1e, #000000); /* Dark Gradient Background */
             color: white;
             display: flex;
             flex-direction: column;
@@ -15,83 +18,132 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden;
         }
+
         h1 {
-            color: #e94560;
+            color: #f99e1a; /* Overwatch Orange Accent */
+            font-size: 4rem;
             margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-style: italic;
         }
+
+        /* CSS Grid Layout for the heroes */
         .container {
-            display: flex;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
         }
+
+        /* 
+           HOVER RULE #1: Unselected heroes are black and white. 
+           We achieve this by making everything grayscale by default.
+        */
         .card {
-            background: #16213e;
-            border: 2px solid #0f3460;
-            border-radius: 10px;
+            background: #2a2a2a;
+            border: 3px solid #555;
             padding: 20px;
-            width: 150px;
+            width: 180px;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.2s, border-color 0.2s;
+            transition: all 0.3s ease;
+            filter: grayscale(100%); 
+            transform: skew(-5deg); /* A slight angle for that aggressive, futuristic feel */
         }
+
+        /* 
+           HOVER RULE #2: Selected/Hovered hero is fully colored.
+           When we hover over a specific card, remove the grayscale.
+        */
         .card:hover {
-            transform: scale(1.05);
-            border-color: #e94560;
+            filter: grayscale(0%);
+            transform: scale(1.1) skew(-5deg);
+            border-color: #f99e1a;
+            box-shadow: 0 0 20px rgba(249, 158, 26, 0.6);
+            z-index: 10;
         }
+
+        /* 
+           HOVER RULE #3: When interacting with the grid, unselected cards fade back.
+        */
+        .container:hover .card:not(:hover) {
+            opacity: 0.4;
+            filter: grayscale(100%);
+        }
+
         .card img {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             margin-bottom: 15px;
-            background: #533483;
+            background: #444;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            transform: skew(5deg); /* Reverse the skew so the image stays straight */
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease;
         }
+
+        .card:hover img {
+            border-color: #f99e1a;
+        }
+
         .card h2 {
-            font-size: 1.2rem;
+            font-size: 2.2rem;
             margin: 0 0 10px 0;
+            text-transform: uppercase;
+            transform: skew(5deg);
         }
+
         .btn {
-            background: #e94560;
-            color: white;
+            background: #f99e1a;
+            color: #111;
+            font-family: 'Teko', sans-serif;
+            font-size: 1.5rem;
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 5px 20px;
             cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            transform: skew(5deg);
             transition: background 0.3s;
         }
+
         .btn:hover {
-            background: #0f3460;
+            background: #fff;
         }
+
         #selection {
-            margin-top: 2rem;
-            font-size: 1.5rem;
-            color: #e94560;
+            margin-top: 3rem;
+            font-size: 2.5rem;
+            color: #f99e1a;
             font-weight: bold;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
 
-    <h1>Character Selection Module</h1>
+    <h1>Select Your Hero</h1>
 
     <div class="container">
-        <div class="card">
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mage" alt="Mage">
+        <div class="card" onclick="selectHero('The Mage')">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mage&backgroundColor=333333" alt="Mage">
             <h2>The Mage</h2>
-            <button class="btn" onclick="selectHero('The Mage')">Select</button>
+            <button class="btn">Select</button>
         </div>
-        <div class="card">
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Knight" alt="Knight">
+        <div class="card" onclick="selectHero('The Knight')">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Knight&backgroundColor=333333" alt="Knight">
             <h2>The Knight</h2>
-            <button class="btn" onclick="selectHero('The Knight')">Select</button>
+            <button class="btn">Select</button>
         </div>
-        <div class="card">
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rogue" alt="Rogue">
+        <div class="card" onclick="selectHero('The Rogue')">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rogue&backgroundColor=333333" alt="Rogue">
             <h2>The Rogue</h2>
-            <button class="btn" onclick="selectHero('The Rogue')">Select</button>
+            <button class="btn">Select</button>
         </div>
     </div>
 
@@ -99,7 +151,7 @@
 
     <script>
         function selectHero(name) {
-            document.getElementById('selection').innerText = "Selected: " + name;
+            document.getElementById('selection').innerText = "Hero Locked: " + name.toUpperCase();
             console.log("Player selected:", name);
         }
     </script>
