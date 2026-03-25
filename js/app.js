@@ -1,22 +1,49 @@
-/* HERO SELECTION APP LOGIC */
+/* "AMAZING" HERO SELECT LOGIC */
 
-function selectHero(heroName) {
-    const allCards = document.querySelectorAll('.card');
-    const overlay = document.getElementById('selection-overlay');
+let selectedHero = null;
 
-    // Reset all cards from being 'selected'
-    allCards.forEach(card => card.classList.remove('selected'));
+function hoverHero(name, imgUrl) {
+    if (selectedHero) return; // Don't change preview if someone is locked in
 
-    // Highlight the clicked card
-    const targetCard = Array.from(allCards).find(card => card.innerText.includes(heroName));
-    if (targetCard) {
-        targetCard.classList.add('selected');
-    }
+    const previewImg = document.getElementById('preview-img');
+    const previewName = document.getElementById('preview-name');
+    const lockBtn = document.getElementById('lock-btn');
 
-    // Play a "Lock in" sound effect if you have one!
-    // console.log("Hero locked:", heroName.toUpperCase());
+    // Update Preview
+    previewImg.src = imgUrl;
+    previewImg.classList.add('active');
+    previewName.innerText = name;
+    
+    // Show Lock In Button
+    lockBtn.innerText = `Lock in ${name}`;
+    lockBtn.classList.add('show');
+}
 
-    // Show the big hero selected text
-    overlay.innerText = `Selected Hero: ${heroName}`;
-    overlay.classList.add('show');
+function leaveHero() {
+    if (selectedHero) return;
+    
+    const previewImg = document.getElementById('preview-img');
+    const lockBtn = document.getElementById('lock-btn');
+    
+    // Only hide if not locked in
+    previewImg.classList.remove('active');
+    lockBtn.classList.remove('show');
+}
+
+function lockHero() {
+    const previewName = document.getElementById('preview-name');
+    const lockBtn = document.getElementById('lock-btn');
+    const previewImg = document.getElementById('preview-img');
+
+    selectedHero = previewName.innerText;
+    
+    // Visual Polish for "Locked" state
+    previewName.style.color = "#f99e1a";
+    previewImg.style.borderColor = "white";
+    previewImg.style.boxShadow = "0 0 100px white";
+    
+    lockBtn.innerText = "HERO SELECTED";
+    lockBtn.style.background = "white";
+    
+    console.log("GAME START: " + selectedHero + " enters the battle!");
 }

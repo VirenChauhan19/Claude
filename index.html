@@ -3,41 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hero Selection Module</title>
-    <!-- External CSS Link -->
+    <title>Overwatch Hero Gallery</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <h1>Select Your Faction</h1>
+    <!-- HERO PREVIEW AREA (CENTER) -->
+    <div id="preview-area">
+        <img id="preview-img" src="" alt="">
+        <h2 id="preview-name">Select Your Hero</h2>
+        <button id="lock-btn" onclick="lockHero()">Lock In</button>
+    </div>
 
-    <div class="container">
-        <!-- HERO 1: MAGE -->
-        <div class="card" onclick="selectHero('The Mage')">
-            <span class="hero-type">Damage</span>
+    <!-- HERO SELECTION GALLERY (BOTTOM) -->
+    <div class="gallery">
+        <!-- MAGE -->
+        <div class="hero-thumb" onmouseenter="hoverHero('The Mage', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Mage&backgroundColor=1a1a2e')" onmouseleave="leaveHero()">
             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mage&backgroundColor=1a1a2e" alt="Mage">
-            <h2>The Mage</h2>
         </div>
 
-        <!-- HERO 2: KNIGHT -->
-        <div class="card" onclick="selectHero('The Knight')">
-            <span class="hero-type">Tank</span>
+        <!-- KNIGHT -->
+        <div class="hero-thumb" onmouseenter="hoverHero('The Knight', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Knight&backgroundColor=1a1a2e')" onmouseleave="leaveHero()">
             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Knight&backgroundColor=1a1a2e" alt="Knight">
-            <h2>The Knight</h2>
         </div>
 
-        <!-- HERO 3: ROGUE -->
-        <div class="card" onclick="selectHero('The Rogue')">
-            <span class="hero-type">Support</span>
+        <!-- ROGUE -->
+        <div class="hero-thumb" onmouseenter="hoverHero('The Rogue', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rogue&backgroundColor=1a1a2e')" onmouseleave="leaveHero()">
             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rogue&backgroundColor=1a1a2e" alt="Rogue">
-            <h2>The Rogue</h2>
+        </div>
+        
+        <!-- EXTRA HEROES TO MAKE IT LOOK LIKE A FULL GALLERY -->
+        <div class="hero-thumb" onmouseenter="hoverHero('The Archer', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Archer&backgroundColor=1a1a2e')" onmouseleave="leaveHero()">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Archer&backgroundColor=1a1a2e" alt="Archer">
+        </div>
+        <div class="hero-thumb" onmouseenter="hoverHero('The Cleric', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Cleric&backgroundColor=1a1a2e')" onmouseleave="leaveHero()">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Cleric&backgroundColor=1a1a2e" alt="Cleric">
         </div>
     </div>
 
-    <!-- Feedback UI -->
-    <div id="selection-overlay">No character selected</div>
-
-    <!-- External JS Link -->
     <script src="js/app.js"></script>
 
 </body>
