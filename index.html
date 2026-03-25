@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Selection</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a2e;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #e94560;
+            margin-bottom: 2rem;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+        .card {
+            background: #16213e;
+            border: 2px solid #0f3460;
+            border-radius: 10px;
+            padding: 20px;
+            width: 150px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            border-color: #e94560;
+        }
+        .card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            background: #533483;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        .card h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        #selection {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            color: #e94560;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Select Your Hero</h1>
+
+    <div class="container">
+        <div class="card" onclick="selectHero('The Mage')">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mage" alt="Mage">
+            <h2>The Mage</h2>
+        </div>
+        <div class="card" onclick="selectHero('The Knight')">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Knight" alt="Knight">
+            <h2>The Knight</h2>
+        </div>
+        <div class="card" onclick="selectHero('The Rogue')">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rogue" alt="Rogue">
+            <h2>The Rogue</h2>
+        </div>
+    </div>
+
+    <div id="selection">No character selected</div>
+
+    <script>
+        function selectHero(name) {
+            document.getElementById('selection').innerText = "Selected: " + name;
+            console.log("Player selected:", name);
+        }
+    </script>
+
+</body>
+</html>
