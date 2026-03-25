@@ -51,31 +51,47 @@
         }
         .card h2 {
             font-size: 1.2rem;
-            margin: 0;
+            margin: 0 0 10px 0;
+        }
+        .btn {
+            background: #e94560;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #0f3460;
         }
         #selection {
             margin-top: 2rem;
             font-size: 1.5rem;
             color: #e94560;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <h1>Select Your Hero</h1>
+    <h1>Character Selection Module</h1>
 
     <div class="container">
-        <div class="card" onclick="selectHero('The Mage')">
+        <div class="card">
             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mage" alt="Mage">
             <h2>The Mage</h2>
+            <button class="btn" onclick="selectHero('The Mage')">Select</button>
         </div>
-        <div class="card" onclick="selectHero('The Knight')">
+        <div class="card">
             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Knight" alt="Knight">
             <h2>The Knight</h2>
+            <button class="btn" onclick="selectHero('The Knight')">Select</button>
         </div>
-        <div class="card" onclick="selectHero('The Rogue')">
+        <div class="card">
             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rogue" alt="Rogue">
             <h2>The Rogue</h2>
+            <button class="btn" onclick="selectHero('The Rogue')">Select</button>
         </div>
     </div>
 
