@@ -106,6 +106,7 @@ function lockHero() {
 function triggerLockAnimation(previewImg, previewName, previewArea) {
     // Screen flash
     const flash = document.getElementById('lock-flash-overlay');
+    flash.style.display = 'block';
     flash.classList.remove('active');
     void flash.offsetWidth; // force reflow to restart animation
     flash.classList.add('active');
@@ -128,6 +129,7 @@ function triggerLockAnimation(previewImg, previewName, previewArea) {
     // "AGENT LOCKED" banner (delayed for impact)
     const banner = document.getElementById('lock-banner');
     setTimeout(() => {
+        banner.style.display = 'block';
         banner.classList.remove('active');
         void banner.offsetWidth;
         banner.classList.add('active');
