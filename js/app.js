@@ -29,7 +29,6 @@ function handleTimeout() {
         const subHeader = document.getElementById('sub-header');
         subHeader.innerText = "TIME EXPIRED! Random agent assigned...";
         subHeader.style.color = "#ff4444";
-        // Logic to auto-select could go here
     }
 }
 
@@ -52,14 +51,10 @@ function hoverHero(el, name, imgUrl) {
 }
 
 function leaveHero() {
-    if (selectedHero) return;
-    
-    const previewImg = document.getElementById('preview-img');
-    const lockBtn = document.getElementById('lock-btn');
-    
-    // Only hide if not locked in
-    previewImg.classList.remove('active');
-    lockBtn.classList.remove('show');
+    // We removed the logic that hides the button here.
+    // In game UI like Overwatch, once you hover an agent, the preview 
+    // stays until you hover another one. This lets you move your mouse 
+    // to the "Lock In" button without it vanishing.
 }
 
 function lockHero() {
