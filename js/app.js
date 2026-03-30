@@ -84,6 +84,11 @@ function lockHero() {
     selectedHero = previewName.innerText;
     clearInterval(timerInterval);
 
+    const timerDisplay = document.getElementById('timer-count');
+    timerDisplay.innerText = '0';
+    timerDisplay.style.color = '#ff4444';
+    timerDisplay.style.textShadow = '0 0 20px #ff4444';
+
     // --- 1. Kick off cinematic sequence ---
     triggerLockAnimation(previewImg, previewName, previewArea);
 
