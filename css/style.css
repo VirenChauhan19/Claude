@@ -249,28 +249,44 @@ body {
     animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.locked-btn-anim {
-    animation: lockedFlash 0.6s ease-out !important;
-}
-
 @keyframes popIn {
     0% { transform: skew(-15deg) scale(0); opacity: 0; }
     70% { transform: skew(-15deg) scale(1.1); opacity: 1; }
     100% { transform: skew(-15deg) scale(1); opacity: 1; }
 }
 
-@keyframes lockedFlash {
-    0% { background: white; transform: skew(-15deg) scale(1.4); filter: brightness(3); opacity: 1; }
-    100% { background: white; transform: skew(-15deg) scale(1); filter: brightness(1); opacity: 1; }
+/* Stage 1 — button pulses orange while lock animates */
+#lock-btn.btn-charging {
+    animation: btnCharging 0.85s ease-in-out forwards;
+    pointer-events: none;
+}
+@keyframes btnCharging {
+    0%   { transform: skew(-15deg) scale(1);    background: var(--ow-orange); filter: brightness(1); }
+    40%  { transform: skew(-15deg) scale(0.93); background: white;            filter: brightness(1.8); }
+    75%  { transform: skew(-15deg) scale(1.04); background: var(--ow-orange); filter: brightness(1.2); }
+    100% { transform: skew(-15deg) scale(1);    background: var(--ow-orange); opacity: 0; }
+}
+
+/* Stage 2 — READY slams in from above */
+#lock-btn.btn-ready {
+    display: block !important;
+    background: white !important;
+    color: black !important;
+    animation: btnReadySlam 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+@keyframes btnReadySlam {
+    0%   { transform: skew(-15deg) scale(0.4) translateY(-30px); opacity: 0;   filter: brightness(3); }
+    60%  { transform: skew(-15deg) scale(1.12) translateY(4px);  opacity: 1;   filter: brightness(1.4); }
+    100% { transform: skew(-15deg) scale(1)   translateY(0);     opacity: 1;   filter: brightness(1); }
 }
 
 /* ===== LOCK-IN CINEMATIC ANIMATIONS ===== */
 
-/* Full-screen white flash */
+/* Full-screen white flash — softened */
 #lock-flash-overlay {
     position: fixed;
     inset: 0;
-    background: white;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 65%);
     z-index: 9000;
     pointer-events: none;
     opacity: 0;
@@ -280,8 +296,8 @@ body {
 }
 @keyframes lockScreenFlash {
     0%   { opacity: 0; }
-    8%   { opacity: 1; }
-    35%  { opacity: 0.55; }
+    10%  { opacity: 0.55; }
+    40%  { opacity: 0.25; }
     100% { opacity: 0; }
 }
 
@@ -295,12 +311,13 @@ body {
     font-size: 9rem;
     font-weight: 700;
     font-style: italic;
-    color: var(--ow-orange);
+    color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 18px;
     text-shadow:
-        0 0 60px rgba(249, 158, 26, 0.9),
-        0 0 20px rgba(249, 158, 26, 0.6),
+        0 0 60px rgba(0, 174, 255, 1),
+        0 0 25px rgba(0, 174, 255, 0.8),
+        0 0 8px rgba(255, 255, 255, 0.9),
         5px 5px 0 rgba(0, 0, 0, 0.85);
     z-index: 9500;
     pointer-events: none;
@@ -361,4 +378,53 @@ body {
     0%   { background: radial-gradient(circle at 50% 45%, rgba(249,158,26,0.55) 0%, transparent 60%); }
     50%  { background: radial-gradient(circle at 50% 45%, rgba(255,255,255,0.25) 0%, transparent 65%); }
     100% { background: radial-gradient(circle at 50% 45%, rgba(0,174,255,0.1) 0%, transparent 65%); }
+}
+
+/* ===== SHOOTING STARS & ORBIT PARTICLES ===== */
+
+/* Radial burst streaks on lock */
+.shooting-star {
+    position: fixed;
+    height: 3px;
+    border-radius: 2px;
+    transform-origin: left center;
+    pointer-events: none;
+    z-index: 8000;
+}
+
+/* Orbiting particles wrapper — created by JS, position: fixed */
+.orbit-wrapper {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 16;
+    transform: translate(-50%, -50%);
+}
+
+/* Each orbit ring rotates; the dot sits at the top */
+.orbit-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    animation: orbitSpin linear infinite;
+}
+@keyframes orbitSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+.orbit-dot {
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+}
+
+/* Comet tail — elongated dot with trailing glow */
+.orbit-dot.comet {
+    width: 16px !important;
+    height: 4px !important;
+    border-radius: 50% 2px 2px 50%;
+    top: -3px;
 }

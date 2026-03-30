@@ -93,12 +93,16 @@ function lockHero() {
     subHeader.style.color = "#f99e1a";
     previewName.style.color = "#f99e1a";
 
-    // --- 3. Update button after animation settles ---
+    // --- 3. Button: charge pulse → slam in as READY ---
+    lockBtn.classList.remove('btn-ready');
+    lockBtn.classList.add('btn-charging');
+
     setTimeout(() => {
-        lockBtn.innerText = "READY";
-        lockBtn.style.background = "white";
-        lockBtn.classList.add('locked-btn-anim');
-    }, 900);
+        lockBtn.classList.remove('btn-charging');
+        lockBtn.innerText = "✓  READY";
+        void lockBtn.offsetWidth;
+        lockBtn.classList.add('btn-ready');
+    }, 860);
 
     console.log("GAME START: " + selectedHero + " enters the battle!");
 }
@@ -152,5 +156,88 @@ function triggerLockAnimation(previewImg, previewName, previewArea) {
             document.body.appendChild(ring);
             setTimeout(() => ring.remove(), 900);
         }, i * 110);
+    });
+
+    // Shooting star burst + orbit particles
+    shootingStarBurst(cx, cy);
+    setTimeout(() => createOrbitParticles(cx, cy, imgRect.width / 2), 300);
+}
+
+function shootingStarBurst(cx, cy) {
+    const count = 28;
+    const colors = ['#ffffff', '#f99e1a', '#00aeff', '#ffffff', '#ffffff'];
+
+    for (let i = 0; i < count; i++) {
+        const delay = i * 18;
+        setTimeout(() => {
+            const angle  = (360 / count) * i + (Math.random() - 0.5) * 10;
+            const length = 70 + Math.random() * 130;
+            const thick  = 1.5 + Math.random() * 2;
+            const color  = colors[Math.floor(Math.random() * colors.length)];
+            const dur    = 450 + Math.random() * 300;
+
+            const star = document.createElement('div');
+            star.className = 'shooting-star';
+            star.style.cssText = `
+                left: ${cx}px; top: ${cy}px;
+                width: ${length}px; height: ${thick}px;
+                background: linear-gradient(to right, ${color}, transparent);
+                transform: rotate(${angle}deg) scaleX(0);
+            `;
+            document.body.appendChild(star);
+
+            star.animate([
+                { transform: `rotate(${angle}deg) scaleX(0)`,    opacity: 1   },
+                { transform: `rotate(${angle}deg) scaleX(1)`,    opacity: 0.9, offset: 0.55 },
+                { transform: `rotate(${angle}deg) scaleX(1.15)`, opacity: 0   }
+            ], { duration: dur, easing: 'ease-out', fill: 'forwards' });
+
+            setTimeout(() => star.remove(), dur + 50);
+        }, delay);
+    }
+}
+
+function createOrbitParticles(cx, cy, radius) {
+    // Remove any previous orbit wrapper
+    const old = document.getElementById('orbit-wrapper');
+    if (old) old.remove();
+
+    const size = (radius + 38) * 2;
+    const wrapper = document.createElement('div');
+    wrapper.id = 'orbit-wrapper';
+    wrapper.className = 'orbit-wrapper';
+    wrapper.style.cssText = `left:${cx}px; top:${cy}px; width:${size}px; height:${size}px;`;
+    document.body.appendChild(wrapper);
+
+    // Config: [speed(s), delay(s), dotSize(px), color, isComet]
+    const configs = [
+        [2.4,  0,    8,  '#ffffff', false],
+        [2.4, -0.8,  5,  '#00aeff', false],
+        [2.4, -1.6,  6,  '#f99e1a', false],
+        [3.2, -0.4, 10,  '#ffffff', true ],
+        [3.2, -1.4,  4,  '#00aeff', false],
+        [3.2, -2.4,  7,  '#f99e1a', true ],
+        [1.8, -0.6,  5,  '#ffffff', false],
+        [1.8, -1.1,  4,  '#00aeff', false],
+    ];
+
+    configs.forEach(([dur, delay, dotSize, color, isComet]) => {
+        const ring = document.createElement('div');
+        ring.className = 'orbit-ring';
+        ring.style.animationDuration = `${dur}s`;
+        ring.style.animationDelay    = `${delay}s`;
+
+        const dot = document.createElement('div');
+        dot.className = isComet ? 'orbit-dot comet' : 'orbit-dot';
+        const glow = dotSize * 2.5;
+        dot.style.cssText = `
+            width: ${isComet ? dotSize * 2 : dotSize}px;
+            height: ${isComet ? dotSize / 2 : dotSize}px;
+            background: ${color};
+            box-shadow: 0 0 ${glow}px ${color}, 0 0 ${glow * 2}px ${color};
+        `;
+
+        ring.appendChild(dot);
+        wrapper.appendChild(ring);
     });
 }
