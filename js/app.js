@@ -17,7 +17,7 @@ function hoverHero(el, name, imgUrl) {
     previewName.innerText = name;
     
     // Show Lock In Button
-    lockBtn.innerText = `Lock in ${name}`;
+    lockBtn.innerText = "Lock in " + name; 
     lockBtn.classList.add('show');
 }
 
