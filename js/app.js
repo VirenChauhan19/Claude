@@ -6,6 +6,11 @@ let timeLeft = 60;
 
 // Initialize Timer
 const timerInterval = setInterval(() => {
+    if (selectedHero) {
+        clearInterval(timerInterval);
+        return;
+    }
+
     timeLeft--;
     const timerDisplay = document.getElementById('timer-count');
     if (timerDisplay) {
@@ -26,9 +31,22 @@ const timerInterval = setInterval(() => {
 
 function handleTimeout() {
     if (!selectedHero) {
-        const subHeader = document.getElementById('sub-header');
-        subHeader.innerText = "TIME EXPIRED! Random agent assigned...";
-        subHeader.style.color = "#ff4444";
+        const thumbs = document.querySelectorAll('.hero-thumb');
+        if (thumbs.length > 0) {
+            const randomIndex = Math.floor(Math.random() * thumbs.length);
+            const randomThumb = thumbs[randomIndex];
+            const img = randomThumb.querySelector('img');
+            const name = img.alt.toUpperCase();
+            const url = img.src;
+
+            // Simulate selection and lock
+            hoverHero(randomThumb, name, url);
+            lockHero();
+
+            const subHeader = document.getElementById('sub-header');
+            subHeader.innerText = "TIME EXPIRED! RANDOM AGENT ASSIGNED: " + name;
+            subHeader.style.color = "#ff4444";
+        }
     }
 }
 
@@ -51,14 +69,11 @@ function hoverHero(el, name, imgUrl) {
 }
 
 function leaveHero() {
-    // We removed the logic that hides the button here.
-    // In game UI like Overwatch, once you hover an agent, the preview 
-    // stays until you hover another one. This lets you move your mouse 
-    // to the "Lock In" button without it vanishing.
+    // Keep selection active so user can click the Lock button
 }
 
 function lockHero() {
-    if (!currentThumb) return;
+    if (!currentThumb || selectedHero) return;
 
     const previewName = document.getElementById('preview-name');
     const lockBtn = document.getElementById('lock-btn');
@@ -66,6 +81,7 @@ function lockHero() {
     const subHeader = document.getElementById('sub-header');
 
     selectedHero = previewName.innerText;
+    clearInterval(timerInterval); // Stop timer on lock
     
     // Apply locked class to thumb
     currentThumb.classList.add('locked');
