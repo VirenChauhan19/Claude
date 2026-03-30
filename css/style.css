@@ -263,3 +263,102 @@ body {
     0% { background: white; transform: skew(-15deg) scale(1.4); filter: brightness(3); opacity: 1; }
     100% { background: white; transform: skew(-15deg) scale(1); filter: brightness(1); opacity: 1; }
 }
+
+/* ===== LOCK-IN CINEMATIC ANIMATIONS ===== */
+
+/* Full-screen white flash */
+#lock-flash-overlay {
+    position: fixed;
+    inset: 0;
+    background: white;
+    z-index: 9000;
+    pointer-events: none;
+    opacity: 0;
+}
+#lock-flash-overlay.active {
+    animation: lockScreenFlash 0.9s ease-out forwards;
+}
+@keyframes lockScreenFlash {
+    0%   { opacity: 0; }
+    8%   { opacity: 1; }
+    35%  { opacity: 0.55; }
+    100% { opacity: 0; }
+}
+
+/* "AGENT LOCKED" stamp banner */
+#lock-banner {
+    position: fixed;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%) scaleX(4) scaleY(0.2);
+    font-family: 'Teko', sans-serif;
+    font-size: 9rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--ow-orange);
+    text-transform: uppercase;
+    letter-spacing: 18px;
+    text-shadow:
+        0 0 60px rgba(249, 158, 26, 0.9),
+        0 0 20px rgba(249, 158, 26, 0.6),
+        5px 5px 0 rgba(0, 0, 0, 0.85);
+    z-index: 9500;
+    pointer-events: none;
+    opacity: 0;
+    filter: blur(12px);
+}
+#lock-banner.active {
+    animation: bannerSlam 1.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+@keyframes bannerSlam {
+    0%   { opacity: 0;   transform: translate(-50%, -50%) scaleX(4)    scaleY(0.2); filter: blur(18px); }
+    12%  { opacity: 1;   transform: translate(-50%, -50%) scaleX(1.06) scaleY(1.06); filter: blur(0); }
+    22%  { opacity: 1;   transform: translate(-50%, -50%) scaleX(0.97) scaleY(0.97); filter: blur(0); }
+    35%  { opacity: 1;   transform: translate(-50%, -50%) scale(1);     filter: blur(0); }
+    72%  { opacity: 1;   transform: translate(-50%, -50%) scale(1);     filter: blur(0); }
+    100% { opacity: 0;   transform: translate(-50%, -50%) scale(0.92) translateY(-30px); filter: blur(6px); }
+}
+
+/* Hero portrait — slam zoom on lock */
+#preview-img.lock-anim {
+    animation: heroLockSlam 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes heroLockSlam {
+    0%   { transform: scale(1.1)  translateY(-20px); filter: brightness(1)   saturate(1);   border-color: var(--ow-orange); }
+    18%  { transform: scale(1.85) translateY(-45px); filter: brightness(4)   saturate(0);   border-color: white; box-shadow: 0 0 160px white; }
+    45%  { transform: scale(1.55) translateY(-38px); filter: brightness(1.8) saturate(1.6); border-color: white; box-shadow: 0 0 120px rgba(249,158,26,0.8); }
+    100% { transform: scale(1.15) translateY(-25px); filter: brightness(1)   saturate(1.2); border-color: white; box-shadow: 0 0 100px white; }
+}
+
+/* Hero name — slam up from below */
+#preview-name.lock-anim {
+    animation: nameLockSlam 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s both;
+}
+@keyframes nameLockSlam {
+    0%   { transform: translateY(90px) scaleX(1.4); opacity: 0; letter-spacing: 35px; filter: blur(8px); }
+    55%  { transform: translateY(-12px) scaleX(0.96); opacity: 1; letter-spacing: 10px; filter: blur(0); }
+    100% { transform: translateY(0)  scaleX(1);    opacity: 1; letter-spacing: 12px; filter: blur(0); }
+}
+
+/* Shockwave rings — spawned via JS */
+.shockwave-ring {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 8500;
+    animation: shockwaveExpand 0.85s ease-out forwards;
+}
+@keyframes shockwaveExpand {
+    0%   { transform: translate(-50%, -50%) scale(0.5); opacity: 0.9; }
+    100% { transform: translate(-50%, -50%) scale(4.5); opacity: 0; }
+}
+
+/* Preview area energy pulse on lock */
+#preview-area.lock-pulse {
+    animation: areaPulse 0.6s ease-out forwards;
+}
+@keyframes areaPulse {
+    0%   { background: radial-gradient(circle at 50% 45%, rgba(249,158,26,0.55) 0%, transparent 60%); }
+    50%  { background: radial-gradient(circle at 50% 45%, rgba(255,255,255,0.25) 0%, transparent 65%); }
+    100% { background: radial-gradient(circle at 50% 45%, rgba(0,174,255,0.1) 0%, transparent 65%); }
+}
