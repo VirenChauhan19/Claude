@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:api.unsplash.com)",
+      "WebFetch(domain:source.unsplash.com)",
+      "WebFetch(domain:unsplash.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:noembed.com)",
+      "WebFetch(domain:dev.to)",
+      "Bash(curl -s \"https://unsplash.com/oembed?url=https://unsplash.com/photos/JuaXkWmueZc\" -H \"User-Agent: Mozilla/5.0\")",
+      "Bash(curl -s \"https://unsplash.com/oembed?url=https://unsplash.com/photos/Gh8WA4OXBM8\" -H \"User-Agent: Mozilla/5.0\")",
+      "WebFetch(domain:images.pexels.com)"
+    ]
+  }
+}
