@@ -384,6 +384,36 @@ body {
     100% { background: radial-gradient(circle at 50% 45%, rgba(0,174,255,0.1) 0%, transparent 65%); }
 }
 
+/* ===== TIMER URGENCY ANIMATIONS ===== */
+
+/* One-shot pop when urgency kicks in at 10 seconds */
+#timer-count.urgent-enter {
+    animation: timerUrgentPop 0.62s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    display: inline-block;
+}
+@keyframes timerUrgentPop {
+    0%   { transform: scale(1);   filter: brightness(1);   }
+    30%  { transform: scale(1.9); filter: brightness(2.8); color: white; }
+    62%  { transform: scale(1.1); filter: brightness(1.4); }
+    100% { transform: scale(1.4); filter: brightness(1);   }
+}
+
+/* Persistent enlarged state after the pop */
+#timer-count.urgent {
+    transform: scale(1.4);
+    display: inline-block;
+}
+
+/* Micro-flash on each tick 9 → 1 */
+#timer-count.tick-flash {
+    animation: tickFlash 0.22s ease-out;
+    display: inline-block;
+}
+@keyframes tickFlash {
+    0%   { filter: brightness(2.8) drop-shadow(0 0 10px rgba(255, 68, 68, 0.9)); transform: scale(1.5); }
+    100% { filter: brightness(1);   transform: scale(1.4); }
+}
+
 /* ===== SHOOTING STARS & ORBIT PARTICLES ===== */
 
 /* Radial burst streaks on lock */
