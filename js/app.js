@@ -58,7 +58,6 @@ const SoundEngine = (() => {
         addDrone(c, reverb, 'triangle', 261.63, 0.05, 0.22);
         addDrone(c, reverb, 'triangle', 440,    0.03, 0.14);
 
-        scheduleBeat(c, dry);
         scheduleShimmer(c, reverb);
     }
 
@@ -122,6 +121,23 @@ const SoundEngine = (() => {
             setTimeout(shimmer, 900 + Math.random() * 2800);
         }
         setTimeout(shimmer, 1500);
+    }
+
+    // ── BG BEAT (one pulse per timer tick, 60 → 11) ──────────────────
+    function playBgBeat(dest) {
+        if (!bgMasterGain) return;
+        const c = getCtx();
+        const now = c.currentTime;
+        const target = dest || bgMasterGain;
+        const o = c.createOscillator();
+        const g = c.createGain();
+        o.type = 'sine';
+        o.frequency.setValueAtTime(130, now);
+        o.frequency.exponentialRampToValueAtTime(42, now + 0.18);
+        g.gain.setValueAtTime(0.55, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+        o.connect(g); g.connect(target);
+        o.start(now); o.stop(now + 0.45);
     }
 
     // ── URGENCY STINGER (fires once at 10 seconds) ────────────────────
@@ -281,7 +297,7 @@ const SoundEngine = (() => {
         o.start(now); o.stop(now + 0.14);
     }
 
-    return { startBg, playUrgencyStinger, playTick, playLockSound, playHoverSound };
+    return { startBg, playBgBeat, playUrgencyStinger, playTick, playLockSound, playHoverSound };
 })();
 
 // ── AUDIO BOOTSTRAP ───────────────────────────────────────────────────────────
@@ -301,8 +317,11 @@ const timerInterval = setInterval(() => {
     if (timerDisplay) {
         timerDisplay.innerText = timeLeft;
 
-        if (timeLeft === 10) {
-            // One-shot urgency: pop animation + stinger + first tick
+        if (timeLeft > 10) {
+            // 59 → 11: soft background beat in sync with each timer second
+            SoundEngine.playBgBeat();
+        } else if (timeLeft === 10) {
+            // One-shot urgency: pop animation + stinger + first metallic tick
             timerDisplay.style.color = '#ff4444';
             timerDisplay.style.textShadow = '0 0 20px #ff4444, 0 0 40px rgba(255,68,68,0.4)';
             timerDisplay.classList.add('urgent-enter');
@@ -313,9 +332,9 @@ const timerInterval = setInterval(() => {
             SoundEngine.playUrgencyStinger();
             SoundEngine.playTick(10);
         } else if (timeLeft < 10 && timeLeft > 0) {
-            // Per-tick micro flash + tick sound
+            // Per-tick micro flash + metallic tick
             timerDisplay.classList.remove('tick-flash');
-            void timerDisplay.offsetWidth; // force reflow to restart animation
+            void timerDisplay.offsetWidth;
             timerDisplay.classList.add('tick-flash');
             SoundEngine.playTick(timeLeft);
         } else if (timeLeft === 0) {
