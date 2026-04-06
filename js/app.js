@@ -413,6 +413,7 @@ function lockHero() {
     triggerLockAnimation(previewImg, previewName, previewArea);
 
     currentThumb.classList.add('locked');
+    document.querySelector('.gallery').style.pointerEvents = 'none';
     subHeader.innerText = "AGENT LOCKED";
     subHeader.style.color = "#f99e1a";
     previewName.style.color = "#f99e1a";
