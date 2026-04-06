@@ -305,39 +305,53 @@ body {
     100% { opacity: 0; }
 }
 
-/* "AGENT LOCKED" stamp banner */
+/* "AGENT LOCKED" full-width stamp bar */
 #lock-banner {
     position: fixed;
-    top: 42%;
-    left: 50%;
-    transform: translate(-50%, -50%) scaleX(4) scaleY(0.2);
+    top: 18%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: clamp(8px, 1.5vh, 20px) 0;
     font-family: 'Teko', sans-serif;
-    font-size: clamp(2rem, 4.5vw, 6.5rem);
+    font-size: clamp(2.2rem, 5vw, 7rem);
     font-weight: 700;
     font-style: italic;
     color: #ffffff;
     text-transform: uppercase;
-    letter-spacing: clamp(3px, 0.7vw, 12px);
+    letter-spacing: clamp(6px, 1.5vw, 24px);
+    background:
+        linear-gradient(to right,
+            transparent 0%,
+            rgba(0, 0, 0, 0.88) 12%,
+            rgba(0, 0, 0, 0.92) 50%,
+            rgba(0, 0, 0, 0.88) 88%,
+            transparent 100%);
+    border-top:    2px solid rgba(249, 158, 26, 0.85);
+    border-bottom: 2px solid rgba(249, 158, 26, 0.85);
+    box-shadow:
+        0 0 40px rgba(249, 158, 26, 0.25),
+        inset 0 0 60px rgba(0, 174, 255, 0.08);
     text-shadow:
-        0 0 60px rgba(0, 174, 255, 1),
-        0 0 25px rgba(0, 174, 255, 0.8),
-        0 0 8px rgba(255, 255, 255, 0.9),
-        5px 5px 0 rgba(0, 0, 0, 0.85);
-    z-index: 9500;
+        0 0 40px rgba(0, 174, 255, 0.9),
+        0 0 15px rgba(0, 174, 255, 0.6),
+        3px 3px 0 rgba(0, 0, 0, 0.9);
+    z-index: 9700;
     pointer-events: none;
     opacity: 0;
-    filter: blur(12px);
+    transform: scaleY(0);
+    transform-origin: center;
 }
 #lock-banner.active {
-    animation: bannerSlam 1.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    animation: bannerSlam 2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
 @keyframes bannerSlam {
-    0%   { opacity: 0;   transform: translate(-50%, -50%) scaleX(4)    scaleY(0.2); filter: blur(18px); }
-    12%  { opacity: 1;   transform: translate(-50%, -50%) scaleX(1.06) scaleY(1.06); filter: blur(0); }
-    22%  { opacity: 1;   transform: translate(-50%, -50%) scaleX(0.97) scaleY(0.97); filter: blur(0); }
-    35%  { opacity: 1;   transform: translate(-50%, -50%) scale(1);     filter: blur(0); }
-    72%  { opacity: 1;   transform: translate(-50%, -50%) scale(1);     filter: blur(0); }
-    100% { opacity: 0;   transform: translate(-50%, -50%) scale(0.92) translateY(-30px); filter: blur(6px); }
+    0%   { opacity: 0; transform: scaleY(0);    filter: blur(6px);  }
+    10%  { opacity: 1; transform: scaleY(1.08); filter: blur(0);    }
+    18%  { opacity: 1; transform: scaleY(0.95); filter: blur(0);    }
+    28%  { opacity: 1; transform: scaleY(1);    filter: blur(0);    }
+    68%  { opacity: 1; transform: scaleY(1);    filter: blur(0);    }
+    100% { opacity: 0; transform: scaleY(0.95) translateY(-12px); filter: blur(4px); }
 }
 
 /* Hero portrait — slam zoom on lock */
