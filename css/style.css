@@ -46,7 +46,7 @@ body {
 }
 
 #main-header {
-    font-size: clamp(1.2rem, 2.5vw, 3.5rem);
+    font-size: clamp(1.6rem, 3.5vw, 4.5rem);
     text-transform: uppercase;
     margin: 0;
     color: white;
@@ -58,7 +58,7 @@ body {
 }
 
 #sub-header {
-    font-size: clamp(0.6rem, 0.9vw, 1.2rem);
+    font-size: clamp(0.85rem, 1.3vw, 1.6rem);
     margin: 3px 0 0 4px;
     color: var(--ow-light-blue);
     text-transform: uppercase;
@@ -76,14 +76,14 @@ body {
 }
 
 #timer-label {
-    font-size: clamp(0.5rem, 0.65vw, 0.85rem);
+    font-size: clamp(0.75rem, 1vw, 1.2rem);
     color: rgba(255, 255, 255, 0.7);
     text-transform: uppercase;
     letter-spacing: 2px;
 }
 
 #timer-count {
-    font-size: clamp(1.4rem, 2.2vw, 3rem);
+    font-size: clamp(1.8rem, 3vw, 4rem);
     font-weight: 700;
     color: white;
     line-height: 1;
