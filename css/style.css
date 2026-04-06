@@ -118,8 +118,8 @@ body {
 }
 
 #preview-img {
-    width: clamp(120px, 18vmin, 260px);
-    height: clamp(120px, 18vmin, 260px);
+    width: clamp(160px, 22vmin, 320px);
+    height: clamp(160px, 22vmin, 320px);
     border-radius: 50%;
     border: clamp(3px, 0.4vmin, 7px) solid var(--ow-orange);
     box-shadow: 0 0 100px rgba(249, 158, 26, 0.4), inset 0 0 60px rgba(0,0,0,0.6);
@@ -132,16 +132,16 @@ body {
 }
 
 #preview-img.active {
-    transform: scale(1.1) translateY(-20px);
+    transform: scale(1.1);
     opacity: 1;
 }
 
 #preview-name {
-    font-size: clamp(1.8rem, 4.2vw, 6.5rem);
+    font-size: clamp(2.2rem, 5.2vw, 8rem);
     text-transform: uppercase;
     font-style: italic;
     color: white;
-    margin-top: clamp(-18px, -2.5vmin, -45px);
+    margin-top: clamp(-22px, -3vmin, -55px);
     z-index: 10;
     letter-spacing: clamp(2px, 0.5vw, 8px);
     text-shadow: 0 0 40px rgba(0,0,0,1), 4px 4px 15px rgba(0, 174, 255, 0.6);
@@ -223,7 +223,7 @@ body {
 /* BUTTONS AND OVERLAYS */
 #lock-btn {
     position: fixed;
-    bottom: clamp(110px, 16vh, 220px);
+    bottom: clamp(180px, 22vh, 280px);
     background: var(--ow-orange);
     color: black;
     border: none;
@@ -345,10 +345,10 @@ body {
     animation: heroLockSlam 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 @keyframes heroLockSlam {
-    0%   { transform: scale(1.1)  translateY(-20px); filter: brightness(1)   saturate(1);   border-color: var(--ow-orange); }
-    18%  { transform: scale(1.85) translateY(-45px); filter: brightness(4)   saturate(0);   border-color: white; box-shadow: 0 0 160px white; }
-    45%  { transform: scale(1.55) translateY(-38px); filter: brightness(1.8) saturate(1.6); border-color: white; box-shadow: 0 0 120px rgba(249,158,26,0.8); }
-    100% { transform: scale(1.15) translateY(-25px); filter: brightness(1)   saturate(1.2); border-color: white; box-shadow: 0 0 100px white; }
+    0%   { transform: scale(1.1);  filter: brightness(1)   saturate(1);   border-color: var(--ow-orange); }
+    18%  { transform: scale(1.85); filter: brightness(4)   saturate(0);   border-color: white; box-shadow: 0 0 160px white; }
+    45%  { transform: scale(1.55); filter: brightness(1.8) saturate(1.6); border-color: white; box-shadow: 0 0 120px rgba(249,158,26,0.8); }
+    100% { transform: scale(1.15); filter: brightness(1)   saturate(1.2); border-color: white; box-shadow: 0 0 100px white; }
 }
 
 /* Hero name — slam up from below */
