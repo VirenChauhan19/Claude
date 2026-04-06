@@ -432,6 +432,12 @@ function lockHero() {
 }
 
 function triggerLockAnimation(previewImg, previewName, previewArea) {
+    // Snapshot image rect BEFORE adding lock-anim so measurements are accurate
+    const imgRect = previewImg.getBoundingClientRect();
+    const cx = imgRect.left + imgRect.width / 2;
+    const cy = imgRect.top + imgRect.height / 2;
+    const radius = imgRect.width / 2;
+
     // Screen flash
     const flash = document.getElementById('lock-flash-overlay');
     flash.style.display = 'block';
@@ -463,10 +469,7 @@ function triggerLockAnimation(previewImg, previewName, previewArea) {
         banner.classList.add('active');
     }, 120);
 
-    // Shockwave rings — 3 staggered rings from image center
-    const imgRect = previewImg.getBoundingClientRect();
-    const cx = imgRect.left + imgRect.width / 2;
-    const cy = imgRect.top + imgRect.height / 2;
+    // Shockwave rings — sized to match the image, 3 staggered rings
     const ringColors = [
         'border: 3px solid rgba(255,255,255,0.9)',
         'border: 3px solid rgba(249,158,26,0.85)',
@@ -482,12 +485,12 @@ function triggerLockAnimation(previewImg, previewName, previewArea) {
         }, i * 110);
     });
 
-    // Shooting star burst + orbit particles
-    shootingStarBurst(cx, cy);
-    setTimeout(() => createOrbitParticles(cx, cy, imgRect.width / 2), 300);
+    // Shooting stars + orbit — both proportional to image size
+    shootingStarBurst(cx, cy, radius);
+    setTimeout(() => createOrbitParticles(cx, cy, radius), 300);
 }
 
-function shootingStarBurst(cx, cy) {
+function shootingStarBurst(cx, cy, radius) {
     const count = 28;
     const colors = ['#ffffff', '#f99e1a', '#00aeff', '#ffffff', '#ffffff'];
 
@@ -495,7 +498,7 @@ function shootingStarBurst(cx, cy) {
         const delay = i * 18;
         setTimeout(() => {
             const angle  = (360 / count) * i + (Math.random() - 0.5) * 10;
-            const length = 70 + Math.random() * 130;
+            const length = radius * 0.5 + Math.random() * radius * 0.9;  // scales with image
             const thick  = 1.5 + Math.random() * 2;
             const color  = colors[Math.floor(Math.random() * colors.length)];
             const dur    = 450 + Math.random() * 300;
@@ -525,7 +528,9 @@ function createOrbitParticles(cx, cy, radius) {
     const old = document.getElementById('orbit-wrapper');
     if (old) old.remove();
 
-    const size = (radius + 38) * 2;
+    // Gap proportional to image size so particles sit just outside the circle
+    const gap  = Math.max(14, radius * 0.18);
+    const size = (radius + gap) * 2;
     const wrapper = document.createElement('div');
     wrapper.id = 'orbit-wrapper';
     wrapper.className = 'orbit-wrapper';
