@@ -308,7 +308,7 @@ body {
 /* "AGENT LOCKED" full-width stamp bar */
 #lock-banner {
     position: fixed;
-    top: 18%;
+    top: 50%;
     left: 0;
     width: 100%;
     text-align: center;
@@ -339,19 +339,19 @@ body {
     z-index: 9700;
     pointer-events: none;
     opacity: 0;
-    transform: scaleY(0);
+    transform: translateY(-50%) scaleY(0);
     transform-origin: center;
 }
 #lock-banner.active {
     animation: bannerSlam 2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
 @keyframes bannerSlam {
-    0%   { opacity: 0; transform: scaleY(0);    filter: blur(6px);  }
-    10%  { opacity: 1; transform: scaleY(1.08); filter: blur(0);    }
-    18%  { opacity: 1; transform: scaleY(0.95); filter: blur(0);    }
-    28%  { opacity: 1; transform: scaleY(1);    filter: blur(0);    }
-    68%  { opacity: 1; transform: scaleY(1);    filter: blur(0);    }
-    100% { opacity: 0; transform: scaleY(0.95) translateY(-12px); filter: blur(4px); }
+    0%   { opacity: 0; transform: translateY(-50%) scaleY(0);    filter: blur(6px); }
+    10%  { opacity: 1; transform: translateY(-50%) scaleY(1.08); filter: blur(0);   }
+    18%  { opacity: 1; transform: translateY(-50%) scaleY(0.95); filter: blur(0);   }
+    28%  { opacity: 1; transform: translateY(-50%) scaleY(1);    filter: blur(0);   }
+    68%  { opacity: 1; transform: translateY(-50%) scaleY(1);    filter: blur(0);   }
+    100% { opacity: 0; transform: translateY(-62%) scaleY(0.95); filter: blur(4px); }
 }
 
 /* Hero portrait — slam zoom on lock */
