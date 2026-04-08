@@ -5,7 +5,7 @@ AI 201 — Assignment 1
 
 ## 1. Design Intent
 
-**Theme:** Call of Duty: Task Force 141 / Overwatch Hero Selection Vibe
+**Theme:** Hero Select Screen / Overwatch Hero Selection Vibe
 **Mood:** Dark, tactical, cinematic
 
 **Visual Rules:**
